@@ -1,0 +1,15 @@
+C:\Users\chris.freckleton\source\repos\Katas\CarBuilder\CarConstructor\CarConstructor\bin\Debug\net8.0\CarConstructor.exe
+C:\Users\chris.freckleton\source\repos\Katas\CarBuilder\CarConstructor\CarConstructor\bin\Debug\net8.0\CarConstructor.deps.json
+C:\Users\chris.freckleton\source\repos\Katas\CarBuilder\CarConstructor\CarConstructor\bin\Debug\net8.0\CarConstructor.runtimeconfig.json
+C:\Users\chris.freckleton\source\repos\Katas\CarBuilder\CarConstructor\CarConstructor\bin\Debug\net8.0\CarConstructor.dll
+C:\Users\chris.freckleton\source\repos\Katas\CarBuilder\CarConstructor\CarConstructor\bin\Debug\net8.0\CarConstructor.pdb
+C:\Users\chris.freckleton\source\repos\Katas\CarBuilder\CarConstructor\CarConstructor\obj\Debug\net8.0\CarConstructor.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\chris.freckleton\source\repos\Katas\CarBuilder\CarConstructor\CarConstructor\obj\Debug\net8.0\CarConstructor.AssemblyInfoInputs.cache
+C:\Users\chris.freckleton\source\repos\Katas\CarBuilder\CarConstructor\CarConstructor\obj\Debug\net8.0\CarConstructor.AssemblyInfo.cs
+C:\Users\chris.freckleton\source\repos\Katas\CarBuilder\CarConstructor\CarConstructor\obj\Debug\net8.0\CarConstructor.csproj.CoreCompileInputs.cache
+C:\Users\chris.freckleton\source\repos\Katas\CarBuilder\CarConstructor\CarConstructor\obj\Debug\net8.0\CarConstructor.sourcelink.json
+C:\Users\chris.freckleton\source\repos\Katas\CarBuilder\CarConstructor\CarConstructor\obj\Debug\net8.0\CarConstructor.dll
+C:\Users\chris.freckleton\source\repos\Katas\CarBuilder\CarConstructor\CarConstructor\obj\Debug\net8.0\refint\CarConstructor.dll
+C:\Users\chris.freckleton\source\repos\Katas\CarBuilder\CarConstructor\CarConstructor\obj\Debug\net8.0\CarConstructor.pdb
+C:\Users\chris.freckleton\source\repos\Katas\CarBuilder\CarConstructor\CarConstructor\obj\Debug\net8.0\CarConstructor.genruntimeconfig.cache
+C:\Users\chris.freckleton\source\repos\Katas\CarBuilder\CarConstructor\CarConstructor\obj\Debug\net8.0\ref\CarConstructor.dll
