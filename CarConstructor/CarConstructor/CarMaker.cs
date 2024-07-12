@@ -8,114 +8,151 @@ namespace CarConstructor
 {
     public interface ICar
     {
+        bool EngineIsRunning { get; }
         void EngineStart();
         void EngineStop();
-        void Refuel(double fuel);
+        void Refuel(double liters);
         void RunningIdle();
     }
 
     public interface IFuelTankDisplay
     {
-        double FillLevel { get; set; }
-        bool IsComplete { get; set; }
-        bool IsOnReserve { get; set; }
+        double FillLevel { get; }
+        bool IsOnReserve { get; }
+        bool IsComplete { get; }
     }
     public interface IEngine
     {
-        void SetIsRunning(bool isRunning);
-        bool GetIsRunning();
+        bool IsRunning { get; }
+        void Consume(double liters);
+        void Start();
+        void Stop();
     }
     public interface IFuelTank
     {
-        void SetFuelLevel(double fuelLevel);
-        double GetFuelLevel();
+        double FillLevel { get; }
+        bool IsOnReserve { get; }
+        bool IsComplete { get; }
+        void Consume(double liters);
+        void Refuel(double liters);
     }
+
     public class Car : ICar
     {
         public IFuelTankDisplay fuelTankDisplay;
-        public IEngine engine;
-        public IFuelTank fuelTank;
-        public bool EngineIsRunning => engine.GetIsRunning();
+        private IEngine engine;
+        private IFuelTank fuelTank;
 
         public Car()
         {
-            fuelTankDisplay = new FuelTankDisplay();
-            engine = new Engine();
             fuelTank = new FuelTank();
+            fuelTank.Refuel(20);
+            fuelTankDisplay = new FuelTankDisplay(fuelTank);
+            engine = new Engine(fuelTank);
         }
 
         public Car(double fuelLevel)
         {
-            fuelTankDisplay = new FuelTankDisplay();
-            engine = new Engine();
             fuelTank = new FuelTank();
-            fuelTank.SetFuelLevel(fuelLevel);
-            fuelTankDisplay.FillLevel = fuelLevel;
+            fuelTank.Refuel(fuelLevel);
+            fuelTankDisplay = new FuelTankDisplay(fuelTank);
+            engine = new Engine(fuelTank);
         }
+
+        public bool EngineIsRunning => engine.IsRunning;
 
         public void EngineStart()
         {
-            engine.SetIsRunning(true);
+            Console.WriteLine($"car says start: {fuelTank.FillLevel}");
+            engine.Start();
         }
 
         public void EngineStop()
         {
-            engine.SetIsRunning(false);
+            Console.WriteLine($"car says stop: {fuelTank.FillLevel}");
+            RunningIdle();
+            engine.Stop();
         }
 
-        public void Refuel(double fuel)
+        public void Refuel(double liters)
         {
-            fuelTank.SetFuelLevel(fuel);
+            Console.WriteLine($"refuel: {fuelTank.FillLevel}");
+            fuelTank.Refuel(liters);
         }
 
         public void RunningIdle()
         {
-            var fuelConsumption = 0.0003;
-            var newLevel = fuelTank.GetFuelLevel() - fuelConsumption;
-            fuelTank.SetFuelLevel(newLevel);
-            fuelTankDisplay.FillLevel = newLevel;
+            if(engine.IsRunning) fuelTank.Consume(0.0003);
         }
     }
 
     public class Engine : IEngine
     {
-        private bool IsRunning { get; set; }
-        public void SetIsRunning(bool isRunning)
+        private readonly IFuelTank fuelTank;
+        private bool isRunning;
+
+        public Engine(IFuelTank tank)
         {
-            IsRunning = isRunning;
+            fuelTank = tank;
+        }
+        public bool IsRunning => isRunning;
+
+        public void Consume(double liters)
+        {
+            if (fuelTank.FillLevel >= liters && isRunning) fuelTank.Consume(liters);
+            else
+            {
+                Console.WriteLine("engine ran out of gas");
+                Stop();
+            }
         }
 
-        public bool GetIsRunning() => IsRunning;
+        public void Start()
+        {
+            Console.WriteLine($"engine says start: {fuelTank.FillLevel}");
+            isRunning = true;
+        }
 
+        public void Stop()
+        {
+            Console.WriteLine($"engine says stop: {fuelTank.FillLevel}");
+            isRunning = false;
+        }
     }
     public class FuelTank : IFuelTank
     {
-        public double FuelLevel = 20;
-        public void SetFuelLevel(double fuelLevel)
+        private double fillLevel;
+        public double FillLevel => fillLevel;
+
+        public bool IsOnReserve => fillLevel < 5;
+
+        public bool IsComplete => fillLevel == 60;
+
+        public void Consume(double liters)
         {
-            FuelLevel = fuelLevel;
+            fillLevel -= fillLevel + liters >= 0? liters : fillLevel;
         }
-        public double GetFuelLevel() => FuelLevel;
+
+        public void Refuel(double liters)
+        {
+            if(liters > 0)
+            {
+                fillLevel += fillLevel + liters <= 60 ? liters : 60-fillLevel;
+            }
+        }
     }
 
     public class FuelTankDisplay : IFuelTankDisplay
     {
-        public double MaxFuelLevel = 60;
-        private double fillLevel;
-        public double FillLevel
+        private readonly IFuelTank fuelTank;
+        public FuelTankDisplay(IFuelTank tank)
         {
-            get { return double.Parse(fillLevel.ToString("0.00")); }
-            set { fillLevel = value; }
+            fuelTank = tank;
         }
-        public bool IsComplete
-        {
-            get { return fillLevel == MaxFuelLevel; }
-            set { }
-        }
-        public bool IsOnReserve
-        {
-            get { return fillLevel < 5; }
-            set { }
-        }
+        public double FillLevel => Math.Round(fuelTank.FillLevel,2);
+
+        public bool IsOnReserve => fuelTank.IsOnReserve;
+
+        public bool IsComplete => fuelTank.IsComplete;
     }
 }
