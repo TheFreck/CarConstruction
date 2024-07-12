@@ -38,7 +38,7 @@ The next parts will be coming soon...
 
 
 
-
+<pre>
 public interface ICar
 {
     bool EngineIsRunning { get; }
@@ -51,7 +51,8 @@ public interface ICar
 
     void RunningIdle();
 }
-
+</pre>
+<pre>
 public interface IEngine
 {
     bool IsRunning { get; }
@@ -62,7 +63,8 @@ public interface IEngine
 
     void Stop();
 }
-
+</pre>
+<pre>
 public interface IFuelTank
 {
     double FillLevel { get; }
@@ -75,7 +77,8 @@ public interface IFuelTank
 
     void Refuel(double liters);        
 }
-
+</pre>
+<pre>
 public interface IFuelTankDisplay
 {
     double FillLevel { get; }
@@ -84,3 +87,4 @@ public interface IFuelTankDisplay
 
     bool IsComplete { get; }
 }
+</pre>
